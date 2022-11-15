@@ -129,7 +129,7 @@ public class Parser {
         	return false;
         }
         
-		if ((linea.contains("public") || linea.contains("private") || linea.contains("protected")) && linea.contains("(") && !linea.contains("new")) {
+		if ((linea.contains("public") || linea.contains("private") || linea.contains("protected")) && linea.contains("(") && !linea.contains("new") && !linea.contains(";")) {
 			return true;
 		}
 		

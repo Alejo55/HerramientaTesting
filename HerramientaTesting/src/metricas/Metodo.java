@@ -284,7 +284,7 @@ public class Metodo {
 					contador++;
 				
 				if (Pattern.matches(".*(\\s*)switch(\\s*)(\\(.*\\)).*", linea) && !Pattern.matches(".*(\\/\\/).*switch.*", linea))
-					contador++;
+					contador--;
 				
 				if (Pattern.matches(".*(\\s*)for(\\s*)(\\(.*\\)).*", linea) && !Pattern.matches(".*(\\/\\/).*for.*", linea))
 					contador++;
@@ -312,6 +312,18 @@ public class Metodo {
 					else
 						indice = -1;
 				}
+			
+				indice = linea.indexOf("case");
+				while(indice != -1) {
+					contador++;
+					if(indice + 4 <= linea.length())
+						indice += 4;
+					if(linea.substring(indice).contains("case")) {
+						indice += linea.substring(indice).indexOf("case");
+					}
+					else
+						indice = -1;
+				}
 				
 			} else if (linea.contains("*/")) {
 				comentarioMultiLinea = 0;
@@ -334,17 +346,17 @@ public class Metodo {
 			this.recomendaciones += "Baja densidad de comentarios. Se sugiere al menos una densidad del 10%.\n";
 		}
 		if(this.complejidadCiclomatica >= 10) {
-			this.recomendaciones += "Complejidad ciclomática elevada. Debería ser menor a 10.\n";
+			this.recomendaciones += "Complejidad ciclomï¿½tica elevada. Deberï¿½a ser menor a 10.\n";
 		}
 		if(this.fanOut > 7) {
-			this.recomendaciones += "Fan-Out elevado. Es razonable entre 3 y 4, y nunca debe ser mayor a 7. Considere la re-descomposición para controlar la complejidad del método.\n";
+			this.recomendaciones += "Fan-Out elevado. Es razonable entre 3 y 4, y nunca debe ser mayor a 7. Considere la re-descomposiciï¿½n para controlar la complejidad del mï¿½todo.\n";
 		}
 		if(this.fanIn > 7) {
-			this.recomendaciones += "Fan-In elevado. Se recomienda aplicar algún método de prueba bastante exhaustivo a dicha función. Por ejemplo, Cobertura de Condición-Decisión(100% de cobertura).\n";
+			this.recomendaciones += "Fan-In elevado. Se recomienda aplicar algï¿½n mï¿½todo de prueba bastante exhaustivo a dicha funciï¿½n. Por ejemplo, Cobertura de Condiciï¿½n-Decisiï¿½n(100% de cobertura).\n";
 		}else if(this.fanIn >= 3){
-			this.recomendaciones += "Fan-In razonable. Bastaría con aplicarle algún método de prueba que garantice una cobertura mayor al 80%. Por ejemplo, Cobertura de Sentencias, Cobertura de Condición o Cobertura de Decisión.\n";
+			this.recomendaciones += "Fan-In razonable. Bastarï¿½a con aplicarle algï¿½n mï¿½todo de prueba que garantice una cobertura mayor al 80%. Por ejemplo, Cobertura de Sentencias, Cobertura de Condiciï¿½n o Cobertura de Decisiï¿½n.\n";
 		}else {
-			this.recomendaciones += "Fan-In bajo. Poca reutilización de código.\n";
+			this.recomendaciones += "Fan-In bajo. Poca reutilizaciï¿½n de cï¿½digo.\n";
 		}
 	}
 
